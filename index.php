@@ -51,6 +51,14 @@ $hotels = [
   ],
 ];
 
+$parcheggio_richiesto = false;
+
+if (isset($_GET['parcheggio']) && $_GET['parcheggio'] == "on") {
+
+  $parcheggio_richiesto = true;
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -72,6 +80,17 @@ $hotels = [
       <div class="col">
         <h1>HOTELS</h1>
       </div>
+      <hr>
+      <h2>FILTRI</h2>
+      <form action="">
+
+        <input id="parcheggio" name="parcheggio" type="checkbox">
+        <label for="parcheggio">parcheggio</label>
+
+        <button>Cerca</button>
+
+      </form>
+      <hr>
       <table>
         <thead>
           <tr>
@@ -81,11 +100,16 @@ $hotels = [
             <th>VOTO</th>
             <th>DISTANZA DAL CENTRO</th>
           </tr>
-        </thead>+
+        </thead>
         <tbody>
           <?php
           foreach ($hotels as $hotel) {
 
+            if ($parcheggio_richiesto) {
+              if (!$hotel['parking']) {
+                continue;
+              }
+            }
 
           ?>
 
